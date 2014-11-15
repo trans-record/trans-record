@@ -1,0 +1,17 @@
+{
+  "name": "core-scroll-threshold",
+  "private": true,
+  "dependencies": {},
+  "version": "0.5.1",
+  "homepage": "https://github.com/polymer/core-scroll-threshold",
+  "_release": "0.5.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.5.1",
+    "commit": "369b367f47ed86f1c4975c127920f0aba8634083"
+  },
+  "_source": "git://github.com/polymer/core-scroll-threshold.git",
+  "_target": "~0.5.1",
+  "_originalSource": "polymer/core-scroll-threshold",
+  "_direct": true
+}
