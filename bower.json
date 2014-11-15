@@ -1,0 +1,9 @@
+{
+  "name": "transrecord",
+  "version": "1.0.0",
+  "dependencies": {
+    "webcomponentsjs": "^0.5.1",
+    "polymer": "~0.5.1"
+  },
+  "devDependencies": {}
+}
