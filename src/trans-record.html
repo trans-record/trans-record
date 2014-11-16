@@ -1,10 +1,11 @@
 <link rel="import" href="components/polymer/polymer.html">
+<link rel="import" href="components/font-roboto/roboto.html">
 <link rel="import" href="components/core-ajax/core-ajax.html">
 <link rel="import" href="components/core-list/core-list.html">
 <link rel="import" href="components/paper-input/paper-input.html">
-<link rel="import" href="components/core-icon/core-icon.html">
-<link rel="import" href="components/core-icon-button/core-icon-button.html">
 <link rel="import" href="components/core-icons/core-icons.html">
+<link rel="import" href="components/core-icons/maps-icons.html">
+<link rel="import" href="components/core-icon-button/core-icon-button.html">>
 <link rel="import" href="components/core-toolbar/core-toolbar.html">
 <link rel="import" href="components/paper-shadow/paper-shadow.html">
 <link rel="import" href="components/paper-icon-button/paper-icon-button.html">
@@ -20,18 +21,8 @@
 <polymer-element name="trans-record">
     <template>
         <style>
-            html, body {
-                margin: 0;
-                -webkit-tap-highlight-color: transparent;
-                overflow: hidden;
-                user-select: none;
-                -webkit-user-select: none;
-                font-family: sans-serif;
-                height: 100%;
-                margin: 0;
-            }
             .item {
-                padding: 16px;
+                padding: 30px;
             }
             .item.selected{
                 background-color: #eee;
@@ -77,11 +68,8 @@
                 margin-left: 72px;
                 border-bottom: 1px solid #DDD;
             }
-            .fab {
-                background: yellow;
-                position: absolute;
-                bottom: 16px;
-                right: 16px;
+            .review {
+                color: #3B78E7;
             }
             #searchOverlay {
                 position: absolute;
@@ -95,6 +83,10 @@
             }
             .menu {
                 color: black;
+            }
+            #zipInput {
+                margin: 30px;
+                width: 250px;
             }
 
         </style>
@@ -118,27 +110,10 @@
             <core-toolbar class="toolbar tall">
                 <paper-menu-button>
                     <paper-icon-button icon="menu" noink></paper-icon-button>
-                    <!--<paper-dropdown class="dropdown">-->
-                        <!--<core-menu class="menu" on-core-activate="{{jumpToGroup}}">-->
-                            <!--<template repeat="{{group, index in groups}}">-->
-                                <!--<paper-item label="{{group.data.label}}"></paper-item>-->
-                            <!--</template>-->
-                        <!--</core-menu>-->
-                    <!--</paper-dropdown>-->
                 </paper-menu-button>
-                <div flex>Find Your Provider
-                    <!-- {{$.list.$.page.offsetHeight - ($.list.scrollTop - $.list._physicalOffset) - $.list.offsetHeight}}  -->
-                </div>
-                <core-icon-button id="searchButton" icon="search" on-tap="{{toggleSearch}}"></core-icon-button>
-                <core-icon-button icon="check-circle"></core-icon-button>
+                <div flex>Find Your Provider</div>
+                <core-icon-button id="searchButton" icon="icons:search" on-tap="{{toggleSearch}}"></core-icon-button>
             </core-toolbar>
-            <!--<core-overlay id="searchOverlay" transition="core-transition-right" on-core-overlay-open="{{searchOpened}}">-->
-                <!--<core-toolbar class="toolbar" layout horizontal>-->
-                    <!--<core-icon icon="search"></core-icon>-->
-                    <!--<paper-input id="searchInput" flex on-input="{{updateFilter}}"></paper-input>-->
-                    <!--<core-icon-button icon="cancel" on-tap="{{toggleSearch}}"></core-icon-button>-->
-                <!--</core-toolbar>-->
-            <!--</core-overlay>-->
 
             <paper-input-decorator
                 id="zipInput"
@@ -146,6 +121,7 @@
                 floatingLabel
                 error="A valid zip/postal code is required!">
                 <input
+                    autofocus
                     is="core-input"
                     on-blur="{{ updateZip }}"
                     required value="{{ zip }}">
@@ -154,7 +130,7 @@
                 <template>
                     <div>
                         <div class="item" layout horizontal>
-                            <img class="avatar" src="">
+                            <core-icon class="review" icon="maps:rate-review"></core-icon>
                             <div class="pad" flex layout vertical>
                                 <template if="{{ model.type === 'organization' }}">
                                     <div class="primary">{{ model.business_name }}</div>
@@ -164,20 +140,108 @@
                                         {{ model.name_prefix ? model.name_prefix + ' ' : '' }}
                                         {{ model.first_name ? model.first_name + ' ' : '' }}
                                         {{ model.middle_name ? model.middle_name + ' ' : '' }}
-                                        {{ model.last_name ? model.last_name + ' ' : '' }}
+                                        {{ model.last_name ? model.last_name : '' }}
+                                        {{ model.credential ? ', ' + model.credential : '' }}
                                     </div>
                                 </template>
-                                <div class="secondary">2</div>
-                                <div class="secondary dim clamp">{{ index }}</div>
+                                <div class="secondary">
+                                    <address class="vcard">
+                                        <div class="adr">
+                                            <div class="street-address">{{ model.pratice_address.address_line }}</div>
+                                            <div hidden?="{{ !model.practice_address.address_details_line }}" class="street-address">{{ model.practice_address.address_details_line }}</div>
+                                            <div class="locality">{{ model.practice_address.city }}, {{ model.practice_address.state }}</div >
+                                            <div class="postal-code">{{ model.practice_address.zip }}</div >
+                                            <div hidden class="country-name">{{ model.practice_address.country_code }}</div >
+                                        </div>
+                                        <div class="tel">Tel: {{ model.practice_address.phone | formatPhone }}</div>
+                                        <div class="tel">Fax: <span class="fax">{{ model.practice_address.fax | formatPhone }}</span></div>
+                                    </address>
+                                </div>
+                                <div class="secondary dim clamp"></div>
                             </div>
-                            <core-icon icon="star"></core-icon>
+                            <template if="{{ model.rating === '0' }}">
+                                <core-icon icon="icons:star-outline"></core-icon>
+                                <core-icon icon="icons:star-outline"></core-icon>
+                                <core-icon icon="icons:star-outline"></core-icon>
+                                <core-icon icon="icons:star-outline"></core-icon>
+                                <core-icon icon="icons:star-outline"></core-icon>
+                            </template>
+                            <template if="{{ model.rating === '0.5' }}">
+                                <core-icon icon="icons:star-half"></core-icon>
+                                <core-icon icon="icons:star-outline"></core-icon>
+                                <core-icon icon="icons:star-outline"></core-icon>
+                                <core-icon icon="icons:star-outline"></core-icon>
+                                <core-icon icon="icons:star-outline"></core-icon>
+                            </template>
+                            <template if="{{ model.rating === '1' }}">
+                                <core-icon icon="icons:star"></core-icon>
+                                <core-icon icon="icons:star-outline"></core-icon>
+                                <core-icon icon="icons:star-outline"></core-icon>
+                                <core-icon icon="icons:star-outline"></core-icon>
+                                <core-icon icon="icons:star-outline"></core-icon>
+                            </template>
+                            <template if="{{ model.rating === '1.5' }}">
+                                <core-icon icon="icons:star"></core-icon>
+                                <core-icon icon="icons:star-half"></core-icon>
+                                <core-icon icon="icons:star-outline"></core-icon>
+                                <core-icon icon="icons:star-outline"></core-icon>
+                                <core-icon icon="icons:star-outline"></core-icon>
+                            </template>
+                            <template if="{{ model.rating === '2' }}">
+                                <core-icon icon="icons:star"></core-icon>
+                                <core-icon icon="icons:star"></core-icon>
+                                <core-icon icon="icons:star"></core-icon>
+                                <core-icon icon="icons:star-outline"></core-icon>
+                                <core-icon icon="icons:star-outline"></core-icon>
+                            </template>
+                            <template if="{{ model.rating === '2.5' }}">
+                                <core-icon icon="icons:star"></core-icon>
+                                <core-icon icon="icons:star"></core-icon>
+                                <core-icon icon="icons:star-half"></core-icon>
+                                <core-icon icon="icons:star-outline"></core-icon>
+                                <core-icon icon="icons:star-outline"></core-icon>
+                            </template>
+                            <template if="{{ model.rating === '3' }}">
+                                <core-icon icon="icons:star"></core-icon>
+                                <core-icon icon="icons:star"></core-icon>
+                                <core-icon icon="icons:star"></core-icon>
+                                <core-icon icon="icons:star-outline"></core-icon>
+                                <core-icon icon="icons:star-outline"></core-icon>
+                            </template>
+                            <template if="{{ model.rating === '3.5' }}">
+                                <core-icon icon="icons:star"></core-icon>
+                                <core-icon icon="icons:star"></core-icon>
+                                <core-icon icon="icons:star"></core-icon>
+                                <core-icon icon="icons:star-half"></core-icon>
+                                <core-icon icon="icons:star-outline"></core-icon>
+                            </template>
+                            <template if="{{ model.rating === '4' }}">
+                                <core-icon icon="icons:star"></core-icon>
+                                <core-icon icon="icons:star"></core-icon>
+                                <core-icon icon="icons:star"></core-icon>
+                                <core-icon icon="icons:star"></core-icon>
+                                <core-icon icon="icons:star-outline"></core-icon>
+                            </template>
+                            <template if="{{ model.rating === '4.5' }}">
+                                <core-icon icon="icons:star"></core-icon>
+                                <core-icon icon="icons:star"></core-icon>
+                                <core-icon icon="icons:star"></core-icon>
+                                <core-icon icon="icons:star"></core-icon>
+                                <core-icon icon="icons:star-half"></core-icon>
+                            </template>
+                            <template if="{{ model.rating === '5' }}">
+                                <core-icon icon="icons:star"></core-icon>
+                                <core-icon icon="icons:star"></core-icon>
+                                <core-icon icon="icons:star"></core-icon>
+                                <core-icon icon="icons:star"></core-icon>
+                                <core-icon icon="icons:star"></core-icon>
+                            </template>
                         </div>
                         <div class="border"></div>
                     </div>
                 </template>
             </core-list>
         </core-scroll-header-panel>
-        <!--<paper-fab class="fab" icon="add"></paper-fab>-->
 
     </template>
     <script>
@@ -197,13 +261,10 @@
                 this.$.request.params = JSON.stringify( this.params );
                 this.$.request.go();
             },
-            createDisplayName: function ( model ) {
-                var name = '';
-                name += model.name_prefix  + ',' || '';
-                name += model.first_name  + ',' || '';
-                name += model.middle_name + ',' || '';
-                name += model.last_name + ',' || '';
-                return name.split( ',' ).join( ' ' );
+            formatPhone: {
+                toDOM: function( value ) {
+                    return value ? value.replace( /(\d{3})(\d{3})(\d{4})/, '($1) $2-$3' ) : '';
+                }
             },
             updateZip: function ( e, data, sender ) {
                 this.$.zipInput.isInvalid = false;
@@ -217,7 +278,11 @@
                 }
             },
             handleResponse: function ( e, data, sender ) {
-                this.providers = this.providers.concat( data.response.result );
+                var arr = data.response.result.map( function ( item ) {
+                    item.rating = '' + Math.floor( ( Math.random() * 10 ) ) / 2;
+                    return item;
+                } );
+                this.providers = this.providers.concat( arr );
             },
             loadMore: function () {
                 this.offset += 10;
