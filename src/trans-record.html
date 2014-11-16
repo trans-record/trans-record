@@ -59,6 +59,7 @@
                     value1: this.zip
                 };
                 this.$.request.params = JSON.stringify( this.params );
+                this.$.request.go();
             },
             updateZip: function ( e, data, sender ) {
                 this.$.zipInput.isInvalid = false;
@@ -67,13 +68,15 @@
                 }
                 if ( sender.value.match( /^\d{5}(?:[-\s]\d{4})?$/ ) ) {
                     this.createUrl();
-                    this.$.request.go();
                 } else {
                     this.$.zipInput.isInvalid = true;
                 }
             },
             handleResponse: function ( e, data, sender ) {
                 this.providers = data.response.result;
+            },
+            loadMore: function () {
+                this.createUrl();
             }
         } );
     </script>
