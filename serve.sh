@@ -19,4 +19,4 @@ else
   open=xdg-open
 fi
 
-$open http://localhost:$port/ && cd src && python -m SimpleHTTPServer $port;
+$open http://localhost:$port/ && python -m SimpleHTTPServer $port;
