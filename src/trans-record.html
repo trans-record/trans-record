@@ -133,6 +133,7 @@
                 id="zipInput"
                 label="Enter Zip"
                 floatingLabel
+                on-keydown="{{ handleKey }}"
                 error="A valid zip/postal code is required!">
                 <input
                     autofocus
@@ -295,6 +296,7 @@
 
                 if ( this.params.value1 !== sender.value ) {
                     this.offset = 0;
+                    this.providers.length = 0;
                 }
                 if ( sender.value.match( /^\d{5}(?:[-\s]\d{4})?$/ ) ) {
                     this.createUrl();
@@ -317,6 +319,12 @@
                 var model = sender.templateInstance.model.model;
                 //TODO print the provider name in the dialog
                 this.$.dialog.toggle();
+            },
+            handleKey: function ( e, detail, sender ) {
+                // enter
+                if ( e.which === 13 ) {
+                    this.updateZip( e, detail, e.target );
+                }
             }
         } );
     </script>
