@@ -1,114 +1,81 @@
-<!doctype html>
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  
-  <script src="components/webcomponentsjs/webcomponents.js"></script>
-  
-  <link rel="import" href="components/paper-radio-group/paper-radio-group.html">
-  <link rel="import" href="components/font-roboto/roboto.html">
-  <link rel="import" href="components/core-icons/core-icons.html">
+<link rel="import" href="components/paper-radio-group/paper-radio-group.html">
+<link rel="import" href="components/font-roboto/roboto.html">
+<link rel="import" href="components/core-icons/core-icons.html">
+<link rel="import" href="components/paper-button/paper-button.html">
 
-  <link rel="import" href="components/paper-button/paper-button.html">
-  
-  <polymer-element name="rating-box">
+<polymer-element name="rating-box">
     <template>
 
-      <section>
-  
-        <h4>Demeanor</h4>
+        <template repeat="{{ category in categories }}">
+        <section>
 
-          <paper-radio-group
-            id="demeanor"
-            on-change="{{selectedValue}}">
-          <paper-radio-button name="one" label=" " value="1"><core-icon icon="icons:star"></core-icon></paper-radio-button>
-          <paper-radio-button name="two" label=" " value="2"><core-icon icon="icons:star"></core-icon><core-icon icon="icons:star"></core-icon></paper-radio-button>
-          <paper-radio-button name="three" label=" " value="3"><core-icon icon="icons:star"></core-icon><core-icon icon="icons:star"></core-icon><core-icon icon="icons:star"></core-icon></paper-radio-button>
-          <paper-radio-button name="four" label=" " value="4"><core-icon icon="icons:star"></core-icon><core-icon icon="icons:star"></core-icon><core-icon icon="icons:star"></core-icon><core-icon icon="icons:star"></core-icon></paper-radio-button>
-          <paper-radio-button name="five" label=" " value="5"><core-icon icon="icons:star"></core-icon><core-icon icon="icons:star"></core-icon><core-icon icon="icons:star"></core-icon><core-icon icon="icons:star"></core-icon><core-icon icon="icons:star"></core-icon></paper-radio-button></paper-radio-group>
-    
-      </section>
-  
-      <br>
-  
-      <section>
-  
-        <h4>Process</h4>
-    
-          <paper-radio-group
-            id="process"
-            on-change="{{selectedValue}}">
-          <paper-radio-button name="one" label=" " value="1"><core-icon icon="icons:star"></core-icon></paper-radio-button>
-          <paper-radio-button name="two" label=" " value="2"><core-icon icon="icons:star"></core-icon><core-icon icon="icons:star"></core-icon></paper-radio-button>
-          <paper-radio-button name="three" label=" " value="3"><core-icon icon="icons:star"></core-icon><core-icon icon="icons:star"></core-icon><core-icon icon="icons:star"></core-icon></paper-radio-button>
-          <paper-radio-button name="four" label=" " value="4"><core-icon icon="icons:star"></core-icon><core-icon icon="icons:star"></core-icon><core-icon icon="icons:star"></core-icon><core-icon icon="icons:star"></core-icon></paper-radio-button>
-          <paper-radio-button name="five" label=" " value="5"><core-icon icon="icons:star"></core-icon><core-icon icon="icons:star"></core-icon><core-icon icon="icons:star"></core-icon><core-icon icon="icons:star"></core-icon><core-icon icon="icons:star"></core-icon></paper-radio-button>
-    
-      </section>
+            <h4>{{ category }}</h4>
 
-      <br>
+            <paper-radio-group
+                id="{{ category }}"
+                on-change="{{ selectedValue }}">
+                <paper-radio-button name="one" label=" " value="1">
+                    <core-icon icon="icons:star"></core-icon>
+                </paper-radio-button>
+                <paper-radio-button name="two" label=" " value="2">
+                    <core-icon icon="icons:star"></core-icon>
+                    <core-icon icon="icons:star"></core-icon>
+                </paper-radio-button>
+                <paper-radio-button name="three" label=" " value="3">
+                    <core-icon icon="icons:star"></core-icon>
+                    <core-icon icon="icons:star"></core-icon>
+                    <core-icon icon="icons:star"></core-icon>
+                </paper-radio-button>
+                <paper-radio-button name="four" label=" " value="4">
+                    <core-icon icon="icons:star"></core-icon>
+                    <core-icon icon="icons:star"></core-icon>
+                    <core-icon icon="icons:star"></core-icon>
+                    <core-icon icon="icons:star"></core-icon>
+                </paper-radio-button>
+                <paper-radio-button name="five" label=" " value="5">
+                    <core-icon icon="icons:star"></core-icon>
+                    <core-icon icon="icons:star"></core-icon>
+                    <core-icon icon="icons:star"></core-icon>
+                    <core-icon icon="icons:star"></core-icon>
+                    <core-icon icon="icons:star"></core-icon>
+                </paper-radio-button>
+            </paper-radio-group>
+        </section>
 
-      <section>
-  
-        <h4>Staff</h4>
-    
-          <paper-radio-group
-            id="staff"
-            on-change="{{selectedValue}}">
-          <paper-radio-button name="one" label=" " value="1"><core-icon icon="icons:star"></core-icon></paper-radio-button>
-          <paper-radio-button name="two" label=" " value="2"><core-icon icon="icons:star"></core-icon><core-icon icon="icons:star"></core-icon></paper-radio-button>
-          <paper-radio-button name="three" label=" " value="3"><core-icon icon="icons:star"></core-icon><core-icon icon="icons:star"></core-icon><core-icon icon="icons:star"></core-icon></paper-radio-button>
-          <paper-radio-button name="four" label=" " value="4"><core-icon icon="icons:star"></core-icon><core-icon icon="icons:star"></core-icon><core-icon icon="icons:star"></core-icon><core-icon icon="icons:star"></core-icon></paper-radio-button>
-          <paper-radio-button name="five" label=" " value="5"><core-icon icon="icons:star"></core-icon><core-icon icon="icons:star"></core-icon><core-icon icon="icons:star"></core-icon><core-icon icon="icons:star"></core-icon><core-icon icon="icons:star"></core-icon></paper-radio-button>
-    
-      </section>
+        <br>
 
-      <br>
+        </template>
 
-      <section>
-  
-        <h4>Quality of Care</h4>
-    
-          <paper-radio-group
-            id="qoc"
-            on-change="{{selectedValue}}">
-          <paper-radio-button name="one" label=" " value="1"><core-icon icon="icons:star"></core-icon></paper-radio-button>
-          <paper-radio-button name="two" label=" " value="2"><core-icon icon="icons:star"></core-icon><core-icon icon="icons:star"></core-icon></paper-radio-button>
-          <paper-radio-button name="three" label=" " value="3"><core-icon icon="icons:star"></core-icon><core-icon icon="icons:star"></core-icon><core-icon icon="icons:star"></core-icon></paper-radio-button>
-          <paper-radio-button name="four" label=" " value="4"><core-icon icon="icons:star"></core-icon><core-icon icon="icons:star"></core-icon><core-icon icon="icons:star"></core-icon><core-icon icon="icons:star"></core-icon></paper-radio-button>
-          <paper-radio-button name="five" label=" " value="5"><core-icon icon="icons:star"></core-icon><core-icon icon="icons:star"></core-icon><core-icon icon="icons:star"></core-icon><core-icon icon="icons:star"></core-icon><core-icon icon="icons:star"></core-icon></paper-radio-button>
-    
-      </section>     
+        <section>
 
-      <section>
+            <paper-button raised class="colored" on-tap="{{ submit }}">Submit</paper-button>
 
-        <paper-button raised class="colored">Submit</paper-button>
+        </section>
 
-      </section>
- 
     </template>
 
-    <script> 
+    <script>
 
-      Polymer( 'rating-box' , { 
-        selectedValue: function (e, data, sender) { 
-          console.log(e.target.getAttribute("value"), sender.id) 
-        } 
-        clickAction: function (e) {
-          var t = e.target;
-            if (t.localName === 'paper-button') {
-            if (t.hasAttribute('disabled')) {
-              console.error('should not be able to click disabled button', t);
-            } else {
-              console.log('click', t);
+        Polymer( 'rating-box', {
+            categories: ['Demeanor', 'Process', 'Staff', 'Quality of Care'],
+            selectedValue: function ( e, data, sender ) {
+                console.log( sender.id, e.target.getAttribute( 'value' ) );
+            },
+            clickAction: function ( e ) {
+                var t = e.target;
+                if ( t.localName === 'paper-button' ) {
+                    if ( t.hasAttribute( 'disabled' ) ) {
+                        console.error( 'should not be able to click disabled button', t );
+                    } else {
+                        console.log( 'click', t );
+                    }
+                }
+            },
+            submit: function () {
+                this.fire( 'submit' );
             }
-          }
-        }
-      } );
+        } );
 
     </script>
 
-  </polymer-element>
-
-<rating-box></rating-box>
+</polymer-element>

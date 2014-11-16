@@ -17,6 +17,9 @@
 <link rel="import" href="components/core-overlay/core-overlay.html">
 <link rel="import" href="components/core-scroll-threshold/core-scroll-threshold.html">
 <link rel="import" href="components/core-scroll-header-panel/core-scroll-header-panel.html">
+<link rel="import" href="components/paper-dialog/paper-dialog.html">
+<link rel="import" href="components/paper-dialog/paper-action-dialog.html">
+<link rel="import" href="rating_box.html">
 
 <polymer-element name="trans-record">
     <template>
@@ -130,7 +133,10 @@
                 <template>
                     <div>
                         <div class="item" layout horizontal>
-                            <core-icon class="review" icon="maps:rate-review"></core-icon>
+                            <core-icon
+                                class="review"
+                                icon="maps:rate-review"
+                                on-tap="{{ toggleReview }}"></core-icon>
                             <div class="pad" flex layout vertical>
                                 <template if="{{ model.type === 'organization' }}">
                                     <div class="primary">{{ model.business_name }}</div>
@@ -243,6 +249,13 @@
             </core-list>
         </core-scroll-header-panel>
 
+        <paper-dialog id="dialog" transition="core-transition-center">
+
+            <h1>Rate Your Care Experience</h1>
+
+            <rating-box on-submit="{{ toggleReview }}"></rating-box>
+
+        </paper-dialog>
     </template>
     <script>
         Polymer( 'trans-record', {
@@ -268,6 +281,7 @@
             },
             updateZip: function ( e, data, sender ) {
                 this.$.zipInput.isInvalid = false;
+
                 if ( this.params.value1 !== sender.value ) {
                     this.offset = 0;
                 }
@@ -287,6 +301,11 @@
             loadMore: function () {
                 this.offset += 10;
                 this.createUrl();
+            },
+            toggleReview: function ( e, data, sender ) {
+                var model = sender.templateInstance.model.model;
+                //TODO print the provider name in the dialog
+                this.$.dialog.toggle();
             }
         } );
     </script>
