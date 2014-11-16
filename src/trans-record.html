@@ -101,6 +101,14 @@
             #zipInput {
                 margin: 30px;
                 width: 250px;
+                font-size: 1.6em;
+            }
+            paper-icon-button::shadow core-icon {
+                width: 48px;
+                height: 48px;
+            }
+            #panel core-toolbar  {
+                font-size: 2em;
             }
 
         </style>
@@ -126,7 +134,6 @@
                     <paper-icon-button icon="menu" noink></paper-icon-button>
                 </paper-menu-button>
                 <div flex>Find Your Provider</div>
-                <core-icon-button id="searchButton" icon="icons:search" on-tap="{{toggleSearch}}"></core-icon-button>
             </core-toolbar>
 
             <paper-input-decorator
