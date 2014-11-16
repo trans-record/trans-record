@@ -4,7 +4,16 @@
 <link rel="import" href="components/paper-button/paper-button.html">
 
 <polymer-element name="rating-box">
+
     <template>
+        <style>
+            paper-radio-group paper-radio-button {
+                display: block;
+            }
+            paper-radio-group paper-radio-button::shadow #onRadio {
+                background-color: #92d050;
+            }
+        </style>
 
         <template repeat="{{ category in categories }}">
         <section>

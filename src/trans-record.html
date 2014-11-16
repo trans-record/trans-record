@@ -24,14 +24,22 @@
 <polymer-element name="trans-record">
     <template>
         <style>
+            /*
+            green = #92d050
+            purple = #CC0099
+            orange = #EE854F
+            */
             .item {
                 padding: 30px;
+            }
+            core-icon {
+                color: #CC0090;
             }
             .item.selected{
                 background-color: #eee;
             }
             .toolbar {
-                background: #E91E63;
+                background: #EE854F;
                 box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
                 color: white;
             }
@@ -72,7 +80,7 @@
                 border-bottom: 1px solid #DDD;
             }
             .review {
-                color: #3B78E7;
+                color: #92d050;
             }
             #searchOverlay {
                 position: absolute;
@@ -83,6 +91,9 @@
             }
             #searchInput /deep/ .unfocused-underline {
                 background: transparent;
+            }
+            #list {
+                max-width: 600px;
             }
             .menu {
                 color: black;
