@@ -95,6 +95,9 @@
             #list {
                 max-width: 600px;
             }
+            #emptyList {
+                margin: 30px;
+            }
             .menu {
                 color: black;
             }
@@ -148,6 +151,9 @@
                     on-blur="{{ updateZip }}"
                     required value="{{ zip }}">
             </paper-input-decorator>
+            <template if="{{ zip && zip.length >= 5 && providers.length === 0 }}">
+                <div id="emptyList">Sorry, we didn't find any providers in that zip code.</div>
+            </template>
             <core-list id="list" data="{{ providers }}" scrollTarget="{{ $.panel.scroller }}" flex>
                 <template>
                     <div>
